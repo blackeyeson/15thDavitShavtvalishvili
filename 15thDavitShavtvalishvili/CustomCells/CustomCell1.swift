@@ -7,17 +7,26 @@
 
 import UIKit
 
-class CustomCell1: UITableViewCell {
+protocol CustomCellDelegate {
+    func buttonPressed(cell: CustomCell1)
+}
 
+class CustomCell1: UITableViewCell {
+    
+    @IBOutlet weak var title: UILabel!
+    @IBOutlet weak var score: UILabel!
+    @IBOutlet weak var buttonOutlet: UIButton!
+    var delegate: CustomCellDelegate!
+    var status = false
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
-
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
+    @IBAction func watchedButton(_ sender: Any) {
+        delegate.buttonPressed(cell: self)
+    }
 }
