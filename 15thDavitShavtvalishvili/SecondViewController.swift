@@ -9,10 +9,10 @@ import UIKit
 
 class SecondViewController: UIViewController {
 
-
     var data: Movie!
     var index: Int!
     var vc: ViewController!
+    var filteredMovies: [Movie]?
     @IBOutlet weak var dTitle: UILabel!
     @IBOutlet weak var releaseDate: UILabel!
     @IBOutlet weak var imdb: UILabel!
@@ -21,10 +21,17 @@ class SecondViewController: UIViewController {
     @IBOutlet weak var longStory: UILabel!
     @IBOutlet weak var isFavorite: UILabel!
     @IBOutlet weak var stitch: UISwitch!
+    @IBOutlet weak var moviesCView: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        filteredMovies = vc.movieArr.filter { $0.genre == data.genre}
+        setPageStaticInfo()
+        collectionViewConfig()
+        stitch.setOn(vc.movieArr[index].isFavourite, animated: false)
+    }
+    
+    func setPageStaticInfo() {
         dTitle.text = "Title: \(data.title)"
         releaseDate.text = "release Date: \(data.releaseDate)"
         imdb.text = "imdb rating: \(data.imdb)"
@@ -32,8 +39,12 @@ class SecondViewController: UIViewController {
         longStory.text = data.description
         seen.text = "Status: \(vc.movieArr[index].seen ? "Watched" : "New" )"
         isFavorite.text = "Favorite: \(vc.movieArr[index].isFavourite ? "Yes" : "No" )"
-        stitch.setOn(vc.movieArr[index].isFavourite, animated: false)
-        
+    }
+    
+    func collectionViewConfig() {
+        moviesCView.delegate = self
+        moviesCView.dataSource = self
+        moviesCView.register(UINib(nibName: "CollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "CollectionViewCell")
     }
     
     func favsSwitch() {
@@ -47,5 +58,28 @@ class SecondViewController: UIViewController {
     }
     @IBAction func `switch`(_ sender: Any) {
         favsSwitch()
+    }
+}
+
+extension SecondViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        filteredMovies!.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        print("A")
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell
+        cell.delegate = vc
+        cell.delegate2 = self
+        cell.page = 2
+        cell.indexPath = indexPath
+        cell.cellButtonOutlet.setTitle("\(filteredMovies![indexPath[1]].title)",for: .normal)
+        return cell
+    }
+    func buttonPressed2(data: Movie, index: Int) {
+        self.data = data
+        self.index = index
+        setPageStaticInfo()
+        stitch.setOn(vc.movieArr[index].isFavourite, animated: true)
     }
 }

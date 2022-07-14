@@ -7,6 +7,7 @@
 
 import UIKit
 
+//taken out of class for accessibility
 protocol DataDelegate {
     func getInfo() -> Movie
     
@@ -29,9 +30,11 @@ struct Movie {
     let description = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum"
 }
 
+//data for collectionView
 var arr = [Genre.comedy, Genre.comedy, Genre.action, Genre.drama]
 var arrStatus = ["Dummy", "O", "O", "O"]
 
+//viewController
 class ViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
@@ -49,6 +52,7 @@ class ViewController: UIViewController {
         Movie(title: "The Vindicators", releaseDate: "16 May 2018", imdb: 4.3, genre: .action, mainActor: "eric theman", seen: false, isFavourite: false),
         Movie(title: "Tomatos", releaseDate: "3 Jul 2020", imdb: 6.2, genre: .action, mainActor: "jon vermant", seen: true, isFavourite: true)
     ]
+    //for filtering by collectionView
     var movieArrFiltered: [Movie]?
     
     override func viewDidLoad() {
@@ -72,7 +76,7 @@ class ViewController: UIViewController {
     }
 }
 
-
+//Table
 extension ViewController: UITableViewDelegate, UITableViewDataSource, CustomCellDelegate {
     
     func getSelf() -> UIViewController {
@@ -91,32 +95,37 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource, CustomCell
         }
     }
     
+    func getCells(indexPath: IndexPath, stat: Bool) -> CustomCell1 {
+        var status = "New"
+        if stat { status = "Watched" }
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CustomCell1", for: indexPath) as! CustomCell1
+        let Arr = movieArrFiltered!.filter { $0.seen == stat }
+        cell.buttonOutlet.setTitle(status, for: .normal)
+        cell.title.text = Arr[indexPath.row].title
+        cell.score.text = "\(Arr[indexPath.row].imdb)"
+        cell.delegate = self
+        return cell
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "CustomCell1", for: indexPath) as! CustomCell1
-            let Arr1 = movieArrFiltered!.filter { $0.seen == true }
-            cell.buttonOutlet.setTitle("Watched", for: .normal)
-            cell.title.text = Arr1[indexPath.row].title
-            cell.score.text = "\(Arr1[indexPath.row].imdb)"
-            cell.delegate = self
-            return cell
+            return getCells(indexPath: indexPath, stat: true)
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "CustomCell1", for: indexPath) as! CustomCell1
-            let Arr2 = movieArrFiltered!.filter { $0.seen != true }
-            cell.buttonOutlet.setTitle("New", for: .normal)
-            cell.title.text = Arr2[indexPath.row].title
-            cell.score.text = "\(Arr2[indexPath.row].imdb)"
-            cell.delegate = self
-            return cell
+            return getCells(indexPath: indexPath, stat: false)
         }
+    }
+    
+    func getIndexByTitle(movieArr: [Movie], title: String) -> Int {
+        var index = 0
+        for i in 0..<movieArr.count {
+            if movieArr[i].title == title { index = i }
+        }
+        return index
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! CustomCell1
-        var index = 0
-        for i in 0..<movieArr.count {
-            if movieArr[i].title == cell.title.text { index = i }
-        }
+        let index = getIndexByTitle(movieArr: movieArr, title: cell.title.text!)
         let vc1 = storyboard?.instantiateViewController(withIdentifier: "SecondViewController") as! SecondViewController
         vc1.data = movieArr[index]
         vc1.index = index
@@ -125,22 +134,22 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource, CustomCell
     }
         
     func buttonPressed(cell: CustomCell1) {
-        var index = 0
-        for i in 0..<movieArr.count {
-            if movieArr[i].title == cell.title.text { index = i }
-        }
-        movieArr[index].seen = !movieArr[index].seen
+        let index1 = getIndexByTitle(movieArr: movieArr, title: cell.title.text!)
+        let index2 = getIndexByTitle(movieArr: movieArrFiltered!, title: cell.title.text!)
+        movieArr[index1].seen = !movieArr[index1].seen
+        movieArrFiltered![index2].seen = !movieArrFiltered![index2].seen
         tableView.reloadData()
-        print(tableView as Any)
     }
 }
 
+//CollectionView
 extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource,  UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int { 4 }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell
         cell.delegate = self
+        cell.page = 1
         cell.indexPath = indexPath
         cell.cellButtonOutlet.setTitle("\(arrStatus[indexPath[1]]) \(arr[indexPath[1]])",for: .normal)
         if indexPath[1] == 0 { cell.cellButtonOutlet.setTitle("Clear All",for: .normal) }
@@ -150,15 +159,27 @@ extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource, 
         let index = cell.indexPath[1]
         if cell.cellButtonOutlet.titleLabel!.text!.first == "O" {
             arrStatus[index] = "X"
-        } else { arrStatus[index] = "O" }
-        if cell.cellButtonOutlet.titleLabel!.text!.first == "C" {
-            arrStatus = ["O","O","O","O"]
-            movieArrFiltered = movieArr
-            genreColloctionView.reloadData()
-            tableView.reloadData()
+        } else {
+            if cell.cellButtonOutlet.titleLabel!.text!.first == "X" {
+                arrStatus[index] = "O"
+            } else {
+                arrStatus = ["O","O","O","O"]
+//                genreColloctionView.reloadData()
+                genreColloctionView.reloadItems(at: [
+                    IndexPath(item: 1, section: 0), IndexPath(item: 2, section: 0), IndexPath(item: 3, section: 0)]
+                )
+            }
         }
         genreColloctionView.reloadItems(at: [cell.indexPath!])
-        movieArrFiltered = movieArr.filter { $0.genre == arr[index] }
+        updateFilterMovies()
+        
+    }
+    
+    func updateFilterMovies() {
+        movieArrFiltered = movieArr
+        for i in 1...3 {
+            if arrStatus[i] == "X" { movieArrFiltered = movieArrFiltered!.filter { $0.genre == arr[i]} }
+        }
         tableView.reloadData()
     }
 }
