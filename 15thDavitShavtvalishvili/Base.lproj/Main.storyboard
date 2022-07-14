@@ -5,6 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -26,13 +27,38 @@
                                 <buttonConfiguration key="configuration" style="gray" title="Dummy button"/>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="ESf-Kt-RON">
-                                <rect key="frame" x="0.0" y="98" width="414" height="539"/>
+                                <rect key="frame" x="0.0" y="144" width="414" height="493"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="cYY-H4-zcy"/>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="uoN-cn-pUD"/>
                                 </connections>
                             </tableView>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="3Ot-7c-kd1">
+                                <rect key="frame" x="5" y="98" width="404" height="41"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="41" id="ffO-Pf-76I"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="WbM-Sc-hlh">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="2V2-wp-aHX">
+                                        <rect key="frame" x="0.0" y="-43.5" width="128" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="eax-yI-88l">
+                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionViewCellContentView>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="bEy-3f-IHF"/>
+                                </connections>
+                            </collectionView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" red="0.89000000000000001" green="0.72505708792693357" blue="0.41130080959701909" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -40,13 +66,17 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ESf-Kt-RON" secondAttribute="trailing" id="6Ev-XO-ZRt"/>
                             <constraint firstItem="Sn7-PM-7bx" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="9oO-sK-epk"/>
                             <constraint firstItem="ESf-Kt-RON" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Gv5-ds-7yW"/>
+                            <constraint firstItem="3Ot-7c-kd1" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="Oou-qt-nVO"/>
                             <constraint firstItem="Sn7-PM-7bx" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" multiplier="1.5" id="SS1-4D-fgv"/>
-                            <constraint firstItem="ESf-Kt-RON" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="mas-1N-fuM"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="3Ot-7c-kd1" secondAttribute="trailing" constant="5" id="YIE-RS-x8g"/>
+                            <constraint firstItem="ESf-Kt-RON" firstAttribute="top" secondItem="3Ot-7c-kd1" secondAttribute="bottom" constant="5" id="cdK-AE-k1i"/>
+                            <constraint firstItem="3Ot-7c-kd1" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="5" id="irz-fc-A0d"/>
                             <constraint firstItem="Sn7-PM-7bx" firstAttribute="top" secondItem="ESf-Kt-RON" secondAttribute="bottom" constant="10" id="vXm-ov-oKZ"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="eTu-ty-aPg"/>
                     <connections>
+                        <outlet property="genreColloctionView" destination="3Ot-7c-kd1" id="Ma4-3d-9sQ"/>
                         <outlet property="tableView" destination="ESf-Kt-RON" id="Zqt-Nk-vBs"/>
                     </connections>
                 </viewController>

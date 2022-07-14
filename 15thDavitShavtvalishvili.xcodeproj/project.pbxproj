@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0806C19F28801DD300A5F752 /* ViewConCollectionConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0806C19E28801DD300A5F752 /* ViewConCollectionConfig.swift */; };
+		0806C1A428801F8000A5F752 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0806C1A228801F8000A5F752 /* CollectionViewCell.swift */; };
+		0806C1A528801F8000A5F752 /* CollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0806C1A328801F8000A5F752 /* CollectionViewCell.xib */; };
+		0806C1A728805C5900A5F752 /* extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0806C1A628805C5900A5F752 /* extentions.swift */; };
 		08F7C327287D8A5C00B0C74C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F7C326287D8A5C00B0C74C /* AppDelegate.swift */; };
 		08F7C329287D8A5C00B0C74C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F7C328287D8A5C00B0C74C /* SceneDelegate.swift */; };
 		08F7C32B287D8A5C00B0C74C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F7C32A287D8A5C00B0C74C /* ViewController.swift */; };
@@ -19,6 +23,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0806C19E28801DD300A5F752 /* ViewConCollectionConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewConCollectionConfig.swift; sourceTree = "<group>"; };
+		0806C1A228801F8000A5F752 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
+		0806C1A328801F8000A5F752 /* CollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectionViewCell.xib; sourceTree = "<group>"; };
+		0806C1A628805C5900A5F752 /* extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extentions.swift; sourceTree = "<group>"; };
 		08F7C323287D8A5C00B0C74C /* 15thDavitShavtvalishvili.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 15thDavitShavtvalishvili.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		08F7C326287D8A5C00B0C74C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		08F7C328287D8A5C00B0C74C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -43,6 +51,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0806C1A028801DE900A5F752 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				08F7C32A287D8A5C00B0C74C /* ViewController.swift */,
+				0806C19E28801DD300A5F752 /* ViewConCollectionConfig.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		0806C1A128801EB700A5F752 /* GenreCell */ = {
+			isa = PBXGroup;
+			children = (
+				0806C1A228801F8000A5F752 /* CollectionViewCell.swift */,
+				0806C1A328801F8000A5F752 /* CollectionViewCell.xib */,
+			);
+			path = GenreCell;
+			sourceTree = "<group>";
+		};
 		08F7C31A287D8A5C00B0C74C = {
 			isa = PBXGroup;
 			children = (
@@ -64,8 +90,10 @@
 			children = (
 				08F7C326287D8A5C00B0C74C /* AppDelegate.swift */,
 				08F7C328287D8A5C00B0C74C /* SceneDelegate.swift */,
+				0806C1A628805C5900A5F752 /* extentions.swift */,
+				0806C1A128801EB700A5F752 /* GenreCell */,
 				08F7C33C287D97EA00B0C74C /* CustomCells */,
-				08F7C32A287D8A5C00B0C74C /* ViewController.swift */,
+				0806C1A028801DE900A5F752 /* ViewController */,
 				08F7C33A287D937600B0C74C /* SecondViewController.swift */,
 				08F7C32C287D8A5C00B0C74C /* Main.storyboard */,
 				08F7C32F287D8A8000B0C74C /* Assets.xcassets */,
@@ -146,6 +174,7 @@
 				08F7C333287D8A8000B0C74C /* LaunchScreen.storyboard in Resources */,
 				08F7C330287D8A8000B0C74C /* Assets.xcassets in Resources */,
 				08F7C32E287D8A5C00B0C74C /* Main.storyboard in Resources */,
+				0806C1A528801F8000A5F752 /* CollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -159,6 +188,9 @@
 				08F7C33B287D937600B0C74C /* SecondViewController.swift in Sources */,
 				08F7C32B287D8A5C00B0C74C /* ViewController.swift in Sources */,
 				08F7C327287D8A5C00B0C74C /* AppDelegate.swift in Sources */,
+				0806C1A428801F8000A5F752 /* CollectionViewCell.swift in Sources */,
+				0806C1A728805C5900A5F752 /* extentions.swift in Sources */,
+				0806C19F28801DD300A5F752 /* ViewConCollectionConfig.swift in Sources */,
 				08F7C329287D8A5C00B0C74C /* SceneDelegate.swift in Sources */,
 				08F7C33F287D983600B0C74C /* CustomCell1.swift in Sources */,
 			);
